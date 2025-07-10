@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Galería de Fotos</title>
+  <style>
+    body {
+      background-color: white;
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      color: #e91e63;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .galeria {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+    .foto {
+      width: 150px;
+      cursor: pointer;
+      position: relative;
+      border: 2px solid #e91e63;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .foto img {
+      width: 100%;
+      display: block;
+      border-radius: 8px;
+    }
+    /* Modal */
+    #modal {
+      display: none;
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    #modalContent {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 80%;
+      max-height: 80%;
+      display: flex;
+      gap: 20px;
+    }
+    #modalContent img {
+      max-width: 400px;
+      max-height: 80vh;
+      border-radius: 10px;
+    }
+    #modalTexto {
+      max-width: 300px;
+      color: #e91e63;
+      font-size: 1.1rem;
+      overflow-y: auto;
+    }
+    #cerrar {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Te quiero Miriam</h1>
+  <div class="galeria" id="galeria">
+    <!-- Fotos aquí -->
+  </div>
+<p style="color: red; font-size: 1.2rem; text-align: center; margin-top: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+  Estas fotos son algunos recuerdos muy bonitos que tengo contigo, espero que no olvides todo lo bueno que hemos vivido y que siempre vas a ser tú mi persona especial. Te he querido y siempre tendré un sentimiento muy especial contigo. disfruta tus 20 cariño
+</p>
+  <!-- Modal para ampliar la foto -->
+  <div id="modal">
+    <div id="cerrar">&times;</div>
+    <div id="modalContent">
+      <img id="modalImg" src="" alt="Foto ampliada" />
+      <div id="modalTexto"></div>
+    </div>
+  </div>
+
+  <script>
+    // Aquí defines tus fotos y mensajes
+    const fotos = [
+      {src: 'img/foto1.jpg', texto: 'Mensaje para la foto 1'},
+      {src: 'img/foto2.jpg', texto: 'Mensaje para la foto 2'},
+      {src: 'img/foto3.jpg', texto: 'Mensaje para la foto 3'},
+      {src: 'img/foto4.jpg', texto: 'Mensaje para la foto 4'},
+      {src: 'img/foto5.jpg', texto: 'Mensaje para la foto 5'},
+      {src: 'img/foto6.jpg', texto: 'Mensaje para la foto 6'},
+      {src: 'img/foto7.jpg', texto: 'Mensaje para la foto 7'},
+      {src: 'img/foto8.jpg', texto: 'Mensaje para la foto 8'},
+      {src: 'img/foto9.jpg', texto: 'Mensaje para la foto 9'},
+      {src: 'img/foto10.jpg', texto: 'Mensaje para la foto 10'},
+      {src: 'img/foto11.jpg', texto: 'Mensaje para la foto 11'},
+    ];
+
+    const galeria = document.getElementById('galeria');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTexto = document.getElementById('modalTexto');
+    const cerrar = document.getElementById('cerrar');
+
+    // Carga las fotos en la galería
+    fotos.forEach((foto, index) => {
+      const div = document.createElement('div');
+      div.classList.add('foto');
+      const img = document.createElement('img');
+      img.src = foto.src;
+      img.alt = 'Foto ' + (index + 1);
+      div.appendChild(img);
+      galeria.appendChild(div);
+
+      // Click en foto para mostrar modal
+      div.addEventListener('click', () => {
+        modal.style.display = 'flex';
+        modalImg.src = foto.src;
+        modalTexto.textContent = foto.texto;
+      });
+    });
+
+    // Cerrar modal
+    cerrar.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    // Cerrar modal si clicas fuera del contenido
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Felicidades mi niña</title>
+  <style>
+    body {
+      background-color: black;
+      color: #e91e63;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      user-select: none;
+    }
+    .flecha {
+      font-size: 2rem;
+      animation: bounce 1.5s infinite;
+      color: #e91e63;
+    }
+    #corazon {
+      margin-top: 20px;
+      font-size: 3rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      background: none;
+      border: none;
+      user-select: none;
+      color: #e91e63;
+    }
+    #corazon:hover {
+      transform: scale(1.2);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    /* Animación para iluminar palabras */
+    .palabra {
+      opacity: 0.3;
+      transition: opacity 0.8s ease-in-out;
+      display: inline-block;
+      margin: 0 4px;
+    }
+    .palabra.activa {
+      opacity: 1;
+      text-shadow: 0 0 10px #e91e63;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="mensaje"></h1>
+  <div class="flecha">⬇️</div>
+  <button id="corazon">💗</button>
+
+  <script>
+    const texto = "Felicidades mi niña 💖";
+    const mensaje = document.getElementById('mensaje');
+
+    // Separamos el texto en palabras y las ponemos dentro de span
+    const palabras = texto.split(' ').map(palabra => {
+      return `<span class="palabra">${palabra}</span>`;
+    });
+    mensaje.innerHTML = palabras.join(' ');
+
+    const spans = document.querySelectorAll('.palabra');
+    let indice = 0;
+
+    function iluminar() {
+      // Apagamos todas
+      spans.forEach(span => span.classList.remove('activa'));
+      // Encendemos la actual
+      spans[indice].classList.add('activa');
+
+      indice++;
+      if(indice >= spans.length) indice = 0;
+    }
+
+    // Empezar la animación
+    iluminar();
+    setInterval(iluminar, 1000);
+
+    // Evento del corazón
+document.getElementById('corazon').addEventListener('click', () => {
+  window.location.href = 'galeria.html';
+});
+
+  </script>
+</body>
+</html>
